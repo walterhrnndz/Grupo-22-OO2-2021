@@ -1,6 +1,7 @@
 package com.unla.oo22021.repositories;
 
 import com.unla.oo22021.entities.User;
+import com.unla.oo22021.entities.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

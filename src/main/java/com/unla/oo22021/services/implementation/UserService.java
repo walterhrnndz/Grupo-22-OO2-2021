@@ -12,17 +12,23 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Service("userService")
+@Transactional
 public class UserService implements UserDetailsService {
 
     @Autowired
     @Qualifier("userRepository")
     private IUserRepository userRepository;
+
+    public List<com.unla.oo22021.entities.User> listAll() {
+        return userRepository.findAll();
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
