@@ -13,6 +13,9 @@ public interface IPersonaRepository extends JpaRepository<Persona, Serializable>
 
     Persona findByEmail(String email);
 
-    @Query(value = "select * from persona join tpoo2.user on persona.id = tpoo2.user.persona_id join user_role on user_role.user_id = tpoo2.user.id;", nativeQuery = true)
+    //@Query(value = "select * from persona join tpoo2.user on persona.id = tpoo2.user.persona_id join user_role on user_role.user_id = tpoo2.user.id;", nativeQuery = true)
+    @Query(value = "select * from persona inner join tpoo2.user on persona.user_id = tpoo2.user.id inner join user_role on tpoo2.user.id = user_role.user_id;", nativeQuery = true)
     List<Persona> findAllAndUserWithRoles();
+
+    Persona findByNroDni(String nroDNI);
 }

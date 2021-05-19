@@ -19,33 +19,36 @@ public class Persona {
     @Column(name = "tipoDni")
     private String tipoDni;
 
-    @Column(name = "nroDni")
+    @Column(name = "nroDni", unique = true)
     private long nroDni;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "persona", cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     public Persona() {
     }
 
-    public Persona(long id, String nombre, String apellido, String tipoDni, long nroDni, String email) {
+    public Persona(long id, String nombre, String apellido, String tipoDni, long nroDni, String email, User user) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoDni = tipoDni;
         this.nroDni = nroDni;
         this.email = email;
+        this.user = user;
     }
 
-    public Persona(String nombre, String apellido, String tipoDni, long nroDni, String email) {
+    public Persona(String nombre, String apellido, String tipoDni, long nroDni, String email, User user) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoDni = tipoDni;
         this.nroDni = nroDni;
         this.email = email;
+        this.user = user;
     }
 
     public long getId() {

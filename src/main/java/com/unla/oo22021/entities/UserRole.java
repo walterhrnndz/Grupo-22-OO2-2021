@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_role", uniqueConstraints = @UniqueConstraint(columnNames = {"role", "user_id"}))
+@Table(name = "user_role")
 public class UserRole {
 
     @Id
@@ -15,6 +15,7 @@ public class UserRole {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(name = "role", nullable = false, length = 100)

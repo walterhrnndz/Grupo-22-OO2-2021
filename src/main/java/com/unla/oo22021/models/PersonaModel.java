@@ -13,21 +13,23 @@ public class PersonaModel {
     public PersonaModel() {
     }
 
-    public PersonaModel(long id, String nombre, String apellido, String tipoDni, long nroDni, String email) {
+    public PersonaModel(long id, String nombre, String apellido, String tipoDni, long nroDni, String email, UserModel userModel) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoDni = tipoDni;
         this.nroDni = nroDni;
         this.email = email;
+        this.userModel = userModel;
     }
 
-    public PersonaModel(String nombre, String apellido, String tipoDni, long nroDni, String email) {
+    public PersonaModel(String nombre, String apellido, String tipoDni, long nroDni, String email, UserModel userModel) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoDni = tipoDni;
         this.nroDni = nroDni;
         this.email = email;
+        this.userModel = userModel;
     }
 
     public long getId() {

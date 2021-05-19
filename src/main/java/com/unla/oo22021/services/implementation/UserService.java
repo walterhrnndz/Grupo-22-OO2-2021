@@ -1,6 +1,8 @@
 package com.unla.oo22021.services.implementation;
 
+import com.unla.oo22021.converters.UserConverter;
 import com.unla.oo22021.entities.UserRole;
+import com.unla.oo22021.models.UserModel;
 import com.unla.oo22021.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,8 +28,17 @@ public class UserService implements UserDetailsService {
     @Qualifier("userRepository")
     private IUserRepository userRepository;
 
+    @Autowired
+    @Qualifier("userConverter")
+    private UserConverter userConverter;
+
     public List<com.unla.oo22021.entities.User> listAll() {
         return userRepository.findAll();
+    }
+
+    public UserModel insertOrUpdate(UserModel userModel) {
+        com.unla.oo22021.entities.User user = userRepository.save(userConverter.modelToEntity(userModel));
+        return userConverter.entityToModel(user);
     }
 
     @Override

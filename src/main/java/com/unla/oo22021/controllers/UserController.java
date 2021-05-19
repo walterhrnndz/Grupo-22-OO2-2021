@@ -26,8 +26,8 @@ public class UserController {
         return ViewRouteHelper.USER_LOGOUT;
     }
 
-    @GetMapping("/logginsuccess")
-    public RedirectView loginCheck() {
-        return new RedirectView(ViewRouteHelper.ROUTE);
+    @GetMapping("/loginsuccess")
+    public String loginCheck() {
+        return "redirect:/index";
     }
 }

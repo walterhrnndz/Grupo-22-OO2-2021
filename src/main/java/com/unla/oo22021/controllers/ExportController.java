@@ -1,10 +1,15 @@
 package com.unla.oo22021.controllers;
 
 import com.lowagie.text.DocumentException;
+import com.unla.oo22021.entities.Persona;
 import com.unla.oo22021.entities.User;
+import com.unla.oo22021.entities.UserRole;
 import com.unla.oo22021.exportdata.UserPDFExporter;
+import com.unla.oo22021.services.implementation.PersonaService;
+import com.unla.oo22021.services.implementation.UserRoleService;
 import com.unla.oo22021.services.implementation.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -21,6 +26,14 @@ public class ExportController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    @Qualifier("personaService")
+    private PersonaService personaService;
+
+    @Autowired
+    @Qualifier("userRoleService")
+    private UserRoleService userRoleService;
+
     @GetMapping("/pdfPerfiles")
     public void exportToPDFPerfiles(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");
@@ -31,11 +44,11 @@ public class ExportController {
         String headerValue = "attachment; filename=perfiles_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        List<User> listUsers = userService.listAll();
+        List<UserRole> listaUserRoles = userRoleService.listDistinctByRole();
 
-        UserPDFExporter exporter = new UserPDFExporter(listUsers);
-        // TODO Corregir los métodos para exportar solo los perfiles
-        exporter.exportarListadoUsuarios(response);
+        UserPDFExporter exporter = new UserPDFExporter(null, listaUserRoles);
+
+        exporter.exportarListadoPerfiles(response);
     }
 
     @GetMapping("/pdfUsuarios")
@@ -48,9 +61,9 @@ public class ExportController {
         String headerValue = "attachment; filename=usuarios_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        List<User> listUsers = userService.listAll();
+        List<Persona> listaPersonas = personaService.getAll();
 
-        UserPDFExporter exporter = new UserPDFExporter(listUsers);
+        UserPDFExporter exporter = new UserPDFExporter(listaPersonas, null);
         exporter.exportarListadoUsuarios(response);
     }
 }
