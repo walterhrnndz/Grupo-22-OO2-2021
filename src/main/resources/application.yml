@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/tpoo2
+    url: jdbc:mysql://localhost:3306/grupo-22-bdd-oo2-2021
     username: root
     password: root
   jpa:

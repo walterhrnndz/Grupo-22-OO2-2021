@@ -19,14 +19,14 @@
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="/index">Home</a></li>
 
-				<li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Agregar<span class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Agregar<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="/persona/agregar">Usuarios</a></li>
 						<li><a href="/perfil/agregar">Perfiles</a></li>
 					</ul>
 				</li>
 
-				<li class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Editar/Eliminar<span class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Editar/Eliminar<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="/persona">Usuarios</a></li>
 						<li><a href="/perfil">Perfiles</a></li>
@@ -49,13 +49,15 @@
 
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered" id="tablaUsuarios" width="100%" cellspacing="0">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 					<tr>
 						<th>Nombre</th>
 						<th>Apellido</th>
 						<th>Username</th>
 						<th>Perfil</th>
+						<th>Editar</th>
+						<th>Eliminar</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -64,28 +66,18 @@
 							<td><span th:text="${persona.apellido}"/></td>
 							<td><span th:text="${persona.user.username}"/></td>
 							<td th:each="role: ${persona.user.userRoles}"><span th:text="${role.role}"/></td>
+							<td>
+								<a class="btn btn-secondary btn-sm" th:href="@{/persona/editar/} + ${persona.dni}"
+								   th:text="'Editar'" title="Editar">
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-danger btn-sm" th:href="@{/persona/eliminar/} + ${persona.id}"
+								   th:text="'Eliminar'" title="Eliminar"
+								   onclick="return confirm('Estás seguro de eliminar el registro?');">
+								</a>
+							</td>
 						</tr>
-					</tbody>
-				</table>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="container">
-
-		<div class="card-body">
-			<div class="table-responsive">
-				<table class="table table-bordered" id="tablaRoles" width="100%" cellspacing="0">
-					<thead>
-					<tr>
-						<th>Perfil</th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr th:each="role: ${roles}">
-						<td><span th:text="${role.role}"/></td>
-					</tr>
 					</tbody>
 				</table>
 
